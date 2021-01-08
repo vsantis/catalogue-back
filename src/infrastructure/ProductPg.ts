@@ -30,26 +30,6 @@ export default class ProductPg implements ProductRepository {
     }
   }
 
-  // public async findByBrand(brand: string): Promise<Product[]> {
-  //   try {
-  //     const result = await ProductsModel.findAll({ where: { brand: { [Op.substring]: brand } } });
-  //     return result;
-  //   } catch (error) {
-  //     throw new Error(error);
-  //   }
-  // }
-
-  // public async findByDescription(description: string): Promise<Product[]> {
-  //   try {
-  //     const result = await ProductsModel.findAll({
-  //       where: { description: { [Op.substring]: description } },
-  //     });
-  //     return result;
-  //   } catch (error) {
-  //     throw new Error(error);
-  //   }
-  // }
-
   public async findAll(): Promise<Product[]> {
     try {
       const result = await ProductsModel.findAll();
