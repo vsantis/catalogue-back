@@ -1,4 +1,4 @@
-import { Sequelize, Dialect } from 'sequelize';
+import { Sequelize } from 'sequelize';
 import config from '../config';
 import { productsFactory } from './Products';
 
@@ -15,11 +15,7 @@ export const sequelize = new Sequelize(
     // tslint:disable-next-line: no-console
     logging: (sql) => console.debug(sql),
     query: { raw: true },
-    dialectOptions: {
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    },
+    dialectOptions: {},
     timezone: config.timezone,
     define: { schema: postgresConfig.defaultSchema },
     ssl: true,

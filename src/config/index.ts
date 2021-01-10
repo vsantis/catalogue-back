@@ -15,5 +15,5 @@ export default {
     defaultSchema: 'public',
   },
   timezone: 'America/Santiago',
-  port: 3001,
+  port: process.env.PORT,
 };

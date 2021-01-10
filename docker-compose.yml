@@ -1,0 +1,48 @@
+version: '3'
+services:
+  catalogue-back:
+    container_name: catalogue-back
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    env_file: .env
+    environment:
+      - PORT=$PORT
+      - PG_HOST=$PG_HOST
+      - PG_DATABASE=$PG_DATABASE
+      - PG_USERNAME=$PG_USERNAME
+      - PG_PASSWORD=$PG_PASSWORD
+      - PG_PRODUCTS_TABLE=$PG_PRODUCTS_TABLE
+    ports:
+      - '3001:4000'
+  postgres:
+    container_name: postgres
+    image: postgres:10.4
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./migrations/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+    env_file: .env
+    environment:
+      - POSTGRES_USER=$PG_USERNAME
+      - POSTGRES_PASSWORD=$PG_PASSWORD
+      - POSTGRES_DB=$PG_DATABASE
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:4.18
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: yo@admin.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - '8080:80'
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+volumes:
+  pgadmin-data:

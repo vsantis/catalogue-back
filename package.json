@@ -4,8 +4,8 @@
   "description": "catalogue-back",
   "main": "index.js",
   "scripts": {
-    "build-ts": "tsc",
-    "postinstall": "npm run build-ts",
+    "build": "tsc",
+    "postinstall": "npm run build",
     "start": "npm run serve",
     "serve": "node dist/app.js"
   },
