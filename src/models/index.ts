@@ -15,7 +15,11 @@ export const sequelize = new Sequelize(
     // tslint:disable-next-line: no-console
     logging: (sql) => console.debug(sql),
     query: { raw: true },
-    dialectOptions: {},
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
     timezone: config.timezone,
     define: { schema: postgresConfig.defaultSchema },
     ssl: true,

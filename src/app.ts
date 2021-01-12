@@ -3,7 +3,12 @@ import { json } from 'body-parser';
 import * as cors from 'cors';
 import * as helmet from 'helmet';
 import config from './config';
-import productApplication from './application/product';
+import {
+  findProductsApplication,
+  createProductsApplication,
+  updateProductsApplications,
+  deleteProductsApplications,
+} from './application/product';
 import requestLogger from './middleware/requestLogger';
 
 const app = express();
@@ -21,9 +26,17 @@ app.head('/status', (req, res) => {
   res.status(200).end();
 });
 
-app.get('/products', productApplication);
+const pathName = 'products';
 
-app.get('/products/:text', productApplication);
+app.get(`/${pathName}`, findProductsApplication);
+
+app.get(`/${pathName}/:text`, findProductsApplication);
+
+app.post(`/${pathName}`, createProductsApplication);
+
+app.put(`/${pathName}/:id`, updateProductsApplications);
+
+app.delete(`/${pathName}/:id`, deleteProductsApplications);
 
 app.listen(config.port, () => {
   // tslint:disable-next-line: no-console
